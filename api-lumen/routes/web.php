@@ -16,3 +16,11 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('kategori', ['uses' => 'KategoriController@index']);
+    $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
+    $router->delete('kategori/{id}', ['uses' => 'KategoriController@destroy']);
+    $router->put('kategori/{id}', ['uses' => 'KategoriController@update']);
+    $router->post('kategori', ['uses' => 'KategoriController@create']);
+});
