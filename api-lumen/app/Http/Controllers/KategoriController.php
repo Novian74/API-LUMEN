@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -13,8 +14,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        // echo "<h1>ini adalah index</h1>";
-        return response()->json("ini adalah index");
+        $data = Kategori::all();
+
+        return response()->json($data);
     }
 
     /**
@@ -24,7 +26,14 @@ class KategoriController extends Controller
      */
     public function create(Request $request)
     {
-        return response()->json($request);
+        $this->validate($request, [
+            'kategori' => 'required | unique:kategoris',
+            'keterangan' => 'required'
+        ]);
+
+        $kategori = Kategori::create($request->all());
+
+        return response()->json($kategori);
     }
 
     /**
@@ -46,7 +55,9 @@ class KategoriController extends Controller
      */
     public function show($id)
     {
-        return response()->json("menampilkan 1 data");
+        $data = Kategori::where('idkategori', $id)->get();
+
+        return response()->json($data);
     }
 
     /**
@@ -69,7 +80,9 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json("ini update");
+        Kategori::where('idkategori', $id)->update($request->all());
+
+        return response()->json("data sudah diupdate");
     }
 
     /**
@@ -80,6 +93,8 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json("ini delete $id");
+        Kategori::where('idkategori', $id)->delete();
+
+        return response()->json("data sudah dihapus");
     }
 }

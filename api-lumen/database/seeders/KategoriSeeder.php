@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Factory as Faker;
+use App\Models\Kategori;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class KategoriSeeder extends Seeder
 {
@@ -14,6 +16,15 @@ class KategoriSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $faker = Faker::create();
+
+        for ($i = 0; $i < 100; $i++) {
+            $data = [
+                'kategori' => $faker->city,
+                'keterangan' => $faker->text
+            ];
+
+            Kategori::create($data);
+        }
     }
 }
