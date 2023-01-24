@@ -17,7 +17,9 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('login', ['uses' => 'LoginController@index']);
+$router->post('api/register', ['uses' => 'LoginController@register']);
+
+$router->post('api/login', ['uses' => 'LoginController@login']);
 
 
 $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
